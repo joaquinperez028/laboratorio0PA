@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <set>
-using namespace std;
 
-#include "Investigador.h"
+#include "DTRefer.h"
+#include "DTFecha.h"
+using namespace std;
 
 class Investigador;
 

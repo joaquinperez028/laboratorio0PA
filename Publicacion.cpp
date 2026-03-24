@@ -1,4 +1,5 @@
 #include "Publicacion.h"
+#include "Investigador.h"
 #include <iostream>
 
 //constructor
