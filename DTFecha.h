@@ -2,10 +2,16 @@
 #define DTFECHA_H
 
 class DTFecha {
-public:
+private:
     int dia;
     int mes;
     int anio;
+
+public:
+    DTFecha(int dia, int mes, int anio);
+    int getDia();
+    int getMes();
+    int getAnio();
 };
 
 #endif
