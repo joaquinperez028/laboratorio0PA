@@ -1,7 +1,8 @@
 #include "ArticuloRevista.h"
 #include "DTFecha.h"
 
-ArticuloRevista::ArticuloRevista(string DOI, string titulo, DTFecha fecha, string revista, string extracto) : Publicacion(DOI, titulo, fecha)
+ArticuloRevista::ArticuloRevista(string DOI, string titulo, DTFecha fecha, string revista, string extracto)
+    : Publicacion(DOI, titulo, fecha)
 {
     this->revista = revista;
     this->extracto = extracto;
@@ -13,4 +14,4 @@ bool ArticuloRevista::contienePalabra(string palabra)
         return true;
     else
         return false;
-} // prueba git diegoscott
+}
