@@ -3,15 +3,19 @@
 
 #include <string>
 #include "Publicacion.h"
+#include "DTFecha.h"
+
 using namespace std;
 
-class ArticuloRevista : public Publicacion{
-        private:
-            string revista;
-            string extracto;
-        public:
-            ArticuloRevista(string DOI, string titulo, DTFecha fecha, string revista, string extracto);
+class ArticuloRevista : public Publicacion
+{
+private:
+    string revista;
+    string extracto;
 
-            bool contienePalabra(string palabra);
+public:
+    ArticuloRevista(string DOI, string titulo, DTFecha fecha, string revista, string extracto);
+
+    bool contienePalabra(string palabra);
 };
 #endif

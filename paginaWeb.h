@@ -5,17 +5,19 @@
 #include "Publicacion.h"
 #include "DTFecha.h"
 
+using namespace std;
+
 class PaginaWeb : public Publicacion
 {
 private:
-    std::string url;
-    std::string contenidoExtraido;
+    string url;
+    string contenidoExtraido;
 
 public:
-    PaginaWeb(std::string DOI, std::string titulo, DTFecha fecha,
-              std::string url, std::string contenidoExtraido);
+    PaginaWeb(string DOI, string titulo, DTFecha fecha,
+              string url, string contenidoExtraido);
 
-    bool contienePalabra(std::string palabra);
+    bool contienePalabra(string palabra);
 };
 
 #endif
