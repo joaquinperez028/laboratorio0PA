@@ -31,7 +31,7 @@ set<string> Investigador::listarPublicaciones(DTFecha fecha, string palabra){
     set<string> resultado;
     
     for(int i = 0; i < publicaciones.size(); i++){
-        if(publicaciones[i]->getFecha() >= fecha){
+        if(publicaciones[i]->getFecha() >= fecha){ 
             if(publicaciones[i]->contienePalabra(palabra)){
                 resultado.insert(publicaciones[i]->getDOI()); // Obtener el DOI y agregarlo al conjunto
             }

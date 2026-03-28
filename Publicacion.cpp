@@ -3,24 +3,34 @@
 #include <iostream>
 
 //constructor
-Publicacion::Publicacion(string doi, string titulo, DTFecha fecha){
+Publicacion::Publicacion(string doi, string titulo, DTFecha fecha)
+                          : DOI(doi), titulo(titulo), fecha(fecha) {
     this->DOI = doi;
     this->titulo = titulo;
     this->fecha = fecha;
 }
 
+Publicacion::~Publicacion() {
+    //pendiente implementar
+}
+
+DTFecha Publicacion::getFecha() {
+    return this->fecha;
+}
+
+string Publicacion::getDOI() {
+    return this->DOI;
+
+}
 
 DTRefer Publicacion::getDT() {
-        DTRefer ref;
+        set<string> nombresAutores;
 
-        ref.DOI = DOI;
-        ref.titulo = titulo;
-        ref.fecha = fecha;
-
-        for (int i = 0; i < autores.size(); i++) { //con un for "cosecho" solo los nombres de los autores, recorriendo el arreglo
-            ref.autores.insert(autores[i]->getNombre());
+        for (int i = 0; i < autores.size(); i++) {
+            nombresAutores.insert(autores[i]->getNombre());
         }
 
+        DTRefer ref(DOI, titulo, fecha, nombresAutores);
         return ref;
 }
 
@@ -30,8 +40,4 @@ void Publicacion::agregarAutor(Investigador* i) {
     i->agregarPublicacion(this); // este NO vuelve a llamar
 }
 
-/*operacion desde investigador, esto va en el cpp de investigador
-void Investigador::agregarPublicacion(Publicacion* p) {
-    publicaciones.push_back(p);
-}*/
 

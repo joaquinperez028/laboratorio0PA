@@ -1,3 +1,6 @@
+#ifndef PUBLICACION_H
+#define PUBLICACION_H
+
 #include <iostream>
 #include <vector>
 #include <set>
@@ -13,17 +16,17 @@ class Publicacion{
         string DOI;
         string titulo;
         DTFecha fecha;
-        vector<Investigador*> autores; //hacer lo mismo pero con los investigadores
-        // falta la declaracion de la variable polimorfica
+        vector<Investigador*> autores;
+        
     public:
         Publicacion(string, string, DTFecha); //constructor
-        // falta el destructor
-        // falta getFecha operacion agregada para poder hacer la comparacion desde listarPublicaciones
-        // falta getDOI
+        virtual bool contienePalabra(string)=0; //definicion de la operacion abstracta
+        virtual ~Publicacion(); // lo definí pero falta implementar el destructor
+        DTFecha getFecha();
+        string getDOI();
         DTRefer getDT();
         void agregarAutor(Investigador* i); //operacion que carga el puntero al investigador, debo llamar cada vez que cargo una nueva publicacion y autor. Igual del otro lado
-
 };
 
-
+#endif
 

@@ -7,6 +7,8 @@
 
 using namespace std;
 
+class Publicacion; //Agrego forward declaration de publicacion aca por las dudas
+
 class Investigador{
     private:
         string ORCID;
@@ -15,7 +17,7 @@ class Investigador{
         vector<Publicacion*> publicaciones;
     public:
         Investigador(string, string, string); 
-     //destructor   investigador();
+        //destructor   investigador();
         string toString();
         set<string> listarPublicaciones(DTFecha, string); //Retorna set<string> en lugar de string (un conjunto de DOIs)
         void agregarPublicacion(Publicacion*);

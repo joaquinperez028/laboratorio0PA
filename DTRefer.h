@@ -8,11 +8,18 @@
 using namespace std;
 
 class DTRefer {
-public:
+private:
     string DOI;
     string titulo;
     DTFecha fecha;
     set<string> autores;
+
+public:
+    DTRefer(string doi, string titulo, DTFecha fecha, set<string> autores); // constructor
+    string getDOI();
+    string getTitulo();
+    DTFecha getFecha();
+    set<string> getAutores();
 };
 
 #endif
