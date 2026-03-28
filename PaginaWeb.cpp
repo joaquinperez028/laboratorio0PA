@@ -1,5 +1,4 @@
 #include "paginaWeb.h"
-using namespace std;
 
 PaginaWeb ::PaginaWeb(string DOI, string titulo, DTFecha fecha,
                       string url, string contenido) : Publicacion(DOI, titulo, fecha)
