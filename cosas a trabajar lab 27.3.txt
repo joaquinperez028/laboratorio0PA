@@ -1,0 +1,3 @@
+revisar y hacer prolijo el main
+revisar sobre carga de operadores
+hacer makefile
