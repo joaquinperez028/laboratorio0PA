@@ -11,7 +11,9 @@ using namespace std;
 // funciones auxiliares
 void esperar();
 void cargarPublicaciones(vector<Publicacion*>& publicaciones);
-void mostrarMenu(vector<Publicacion*>& publicaciones);
+void mostrarMenu(vector<Publicacion*>& publicaciones,vector<Investigador*>& investigadores);
+void imprimirInvestigadores(vector<Investigador*>& investigadores);
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores);
 
 void esperar() {
     cout << "Presione Enter para continuar...";
@@ -19,7 +21,7 @@ void esperar() {
     cin.get();
 }
 
-void mostrarMenu(vector<Publicacion*>& publicaciones) {
+void mostrarMenu(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores) {
     int opcion;
 
     do {
@@ -124,6 +126,49 @@ void cargarPublicaciones(vector<Publicacion*>& publicaciones) {
     publicaciones.push_back(p1);
 
     cout << "Publicaciones cargadas con exito." << endl;
+    esperar();
+}
+void imprimirInvestigadores(vector<Investigador*>& investigadores){
+    if(investigadores.empty()){
+        cout << "No hay investigadores cargados\n";
+    } else {
+        for(int i = 0; i < investigadores.size(); i++){
+            cout << investigadores[i]->toString() << endl;
+        }
+    }
+    esperar();
+}
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores){
+    string doi, orcid;
+
+    cout << "Ingrese DOI: ";
+    cin >> doi;
+
+    cout << "Ingrese ORCID: ";
+    cin >> orcid;
+
+    Publicacion* pub = NULL;
+    Investigador* inv = NULL;
+
+    for(int p = 0; p < publicaciones.size(); p++){
+        if(publicaciones[p]->getDOI() == doi){
+            pub = publicaciones[p];
+        }
+    }
+
+    for(int  i = 0; i < investigadores.size(); i++){
+        if(investigadores[i]->getORCID() == orcid){
+            inv = investigadores[i];
+        }
+    }
+
+    if(pub != NULL && inv != NULL){
+        pub->agregarAutor(inv);
+        cout << "Relacion creada correctamente\n";
+    } else {
+        cout << "No se encontro publicacion o investigador\n";
+    }
+
     esperar();
 }
 
