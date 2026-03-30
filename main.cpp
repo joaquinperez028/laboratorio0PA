@@ -12,9 +12,9 @@ using namespace std;
 void esperar();
 void cargarPublicaciones(vector<Publicacion *> &publicaciones);
 void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
-void cargarInvestigadores(vector<investigadores *> &investigadores);
-void imprimirPublicaciones(vector<Publicacion *>); // necesita de la sobrecarga para funcionar
-
+void cargarInvestigadores(vector<Investigador *> &investigadores);
+void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
+                                                                //agrego &publicaciones porque pateaba en la llamada a la funcion
 void esperar()
 {
     cout << "Presione Enter para continuar...";
@@ -54,10 +54,10 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             imprimirPublicaciones(publicaciones);
             break;
         case 4:
-            imprimirInvestigadores(investigadores);
+            //imprimirInvestigadores(investigadores);
             break;
         case 5:
-            relacionar(publicaciones, investigadores);
+            //relacionar(publicaciones, investigadores);
             break;
         case 6:
             break;
@@ -132,7 +132,7 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones)
 
 void cargarInvestigadores(vector<Investigador *> &i)
 {
-    if (!i.empty)
+    if (!i.empty()) 
     {
         cout << "Los investigadores ya fueron cargados" << endl;
         esperar();
