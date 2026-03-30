@@ -14,7 +14,9 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones);
 void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void cargarInvestigadores(vector<Investigador *> &investigadores);
 void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
-                                                                //agrego &publicaciones porque pateaba en la llamada a la funcion
+void imprimirInvestigadores(vector<Investigador*>& investigadores);
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores);
+
 void esperar()
 {
     cout << "Presione Enter para continuar...";
@@ -54,10 +56,10 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             imprimirPublicaciones(publicaciones);
             break;
         case 4:
-            //imprimirInvestigadores(investigadores);
+            imprimirInvestigadores(investigadores);
             break;
         case 5:
-            //relacionar(publicaciones, investigadores);
+            relacionar(publicaciones, investigadores);
             break;
         case 6:
             break;
@@ -178,6 +180,50 @@ void imprimirPublicaciones(vector<Publicacion *> &p)
         esperar();
         return;
     }
+}
+
+void imprimirInvestigadores(vector<Investigador*>& investigadores){
+    if(investigadores.empty()){
+        cout << "No hay investigadores cargados\n";
+    } else {
+        for(int i = 0; i < investigadores.size(); i++){
+            cout << investigadores[i]->toString() << endl;
+        }
+    }
+    esperar();
+}
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores){
+    string doi, orcid;
+
+    cout << "Ingrese DOI: ";
+    cin >> doi;
+
+    cout << "Ingrese ORCID: ";
+    cin >> orcid;
+
+    Publicacion* pub = NULL;
+    Investigador* inv = NULL;
+
+    for(int p = 0; p < publicaciones.size(); p++){
+        if(publicaciones[p]->getDOI() == doi){
+            pub = publicaciones[p];
+        }
+    }
+
+    for(int  i = 0; i < investigadores.size(); i++){
+        if(investigadores[i]->getORCID() == orcid){
+            inv = investigadores[i];
+        }
+    }
+
+    if(pub != NULL && inv != NULL){
+        pub->agregarAutor(inv);
+        cout << "Relacion creada correctamente\n";
+    } else {
+        cout << "No se encontro publicacion o investigador\n";
+    }
+
+    esperar();
 }
 
 int main()
