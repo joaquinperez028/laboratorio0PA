@@ -1,15 +1,39 @@
+all: Investigador.o Publicacion.o PaginaWeb.o Libro.o ArticuloRevista.o DTFecha.o \
+	DTRefer.o main.o
+	g++ Investigador.o Publicacion.o PaginaWeb.o Libro.o ArticuloRevista.o DTFecha.o \
+	DTRefer.o main.o -o programa
 
-investigador.o: publicacion.o
-	g++ -c investigador.cpp
+Investigador.o:
+	g++ -c Investigador.cpp
 
-publicacion.o: investigador.o
-	g++ -c publicacion.cpp
+Publicacion.o:
+	g++ -c Publicacion.cpp
 
-paginaWeb.o:
-	g++ -c paginaWeb.cpp
+PaginaWeb.o:
+	g++ -c PaginaWeb.cpp
 
-libro.o:
-	g++ -c libro.cpp
+Libro.o:
+	g++ -c Libro.cpp
 
-artivuloRevista.o:
-	g++ -c artivuloRevista.cpp
+ArticuloRevista.o:
+	g++ -c ArticuloRevista.cpp
+
+DTFecha.o:
+	g++ -c DTFecha.cpp
+
+DTRefer.o:
+	g++ -c DTRefer.cpp
+
+main.o:
+	g++ -c main.cpp
+
+clean:
+	rm -f Investigador.o Publicacion.o PaginaWeb.o Libro.o ArticuloRevista.o DTFecha.o \
+	DTRefer.o main.o programa
+
+run:
+	make clean
+	clear
+	make
+	./programa
+
