@@ -66,7 +66,7 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
         case 7:
             break;
         case 0:
-            cout << "Saliendo del programa..." << endl;
+            cout << "Saliendo del programa.." << endl;
             break;
         default:
             cout << "Opcion no valida. Intente nuevamente." << endl;
