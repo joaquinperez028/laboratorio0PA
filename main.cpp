@@ -14,10 +14,9 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones);
 void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void cargarInvestigadores(vector<Investigador *> &investigadores);
 void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
-
-//agrego &publicaciones porque pateaba en la llamada a la funcion
-// Sin el 'const', porque vamos a modificar las listas
-void menuListarPublicaciones(const vector<Publicacion*> listaPublicaciones); 
+void imprimirInvestigadores(vector<Investigador*>& investigadores);
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores);
+void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores);
 void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores);
 
 void esperar()
@@ -59,14 +58,13 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             imprimirPublicaciones(publicaciones);
             break;
         case 4:
-            //imprimirInvestigadores(investigadores);
+            imprimirInvestigadores(investigadores);
             break;
         case 5:
-            //relacionar(publicaciones, investigadores);
+            relacionar(publicaciones, investigadores);
             break;
         case 6:
             menuListarPublicaciones(publicaciones, investigadores);
-             break;
             break;
         case 7:
             menuEliminarPublicacion(publicaciones, investigadores);
@@ -188,6 +186,50 @@ void imprimirPublicaciones(vector<Publicacion *> &p)
     }
 }
 
+void imprimirInvestigadores(vector<Investigador*>& investigadores){
+    if(investigadores.empty()){
+        cout << "No hay investigadores cargados\n";
+    } else {
+        for(int i = 0; i < investigadores.size(); i++){
+            cout << investigadores[i]->toString() << endl;
+        }
+    }
+    esperar();
+}
+void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores){
+    string doi, orcid;
+
+    cout << "Ingrese DOI: ";
+    cin >> doi;
+
+    cout << "Ingrese ORCID: ";
+    cin >> orcid;
+
+    Publicacion* pub = NULL;
+    Investigador* inv = NULL;
+
+    for(int p = 0; p < publicaciones.size(); p++){
+        if(publicaciones[p]->getDOI() == doi){
+            pub = publicaciones[p];
+        }
+    }
+
+    for(int  i = 0; i < investigadores.size(); i++){
+        if(investigadores[i]->getORCID() == orcid){
+            inv = investigadores[i];
+        }
+    }
+
+    if(pub != NULL && inv != NULL){
+        pub->agregarAutor(inv);
+        cout << "Relacion creada correctamente\n";
+    } else {
+        cout << "No se encontro publicacion o investigador\n";
+    }
+
+    esperar();
+}
+
 void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores)
 {
     string orcid, palabra;
@@ -195,9 +237,9 @@ void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, con
 
     cout << "Ingrese ORCID del investigador: ";
     cin >> orcid;
-    cout << "Ingrese fecha límite (día mes año): ";
+    cout << "Ingrese fecha (Ej. 5 6 2023): ";
     cin >> d >> m >> a;
-    DTFecha fechaLimite(d, m, a);
+    DTFecha fecha(d, m, a);
     cout << "Ingrese palabra clave a buscar: ";
     cin >> palabra;
 
@@ -211,8 +253,8 @@ void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, con
     }
 
     if (inv != nullptr) {
-        // 2. Llamar a la función que ya definiste en la clase Investigador
-        set<string> resultados = inv->listarPublicaciones(fechaLimite, palabra);
+        //  Llama a la función que ya definiste en la clase Investigador
+        set<string> resultados = inv->listarPublicaciones(fecha, palabra);
 
         if (resultados.empty()) {
             cout << "No se encontraron publicaciones con esos criterios." << endl;
