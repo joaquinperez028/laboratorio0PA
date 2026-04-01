@@ -19,6 +19,7 @@ void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& inve
 void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores);
 void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores);
 
+
 void esperar()
 {
     cout << "Presione Enter para continuar...";
@@ -70,7 +71,7 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             menuEliminarPublicacion(publicaciones, investigadores);
             break;
         case 0:
-            cout << "Saliendo del programa..." << endl;
+            cout << "Saliendo del programa.." << endl;
             break;
         default:
             cout << "Opcion no valida. Intente nuevamente." << endl;
@@ -197,36 +198,54 @@ void imprimirInvestigadores(vector<Investigador*>& investigadores){
     esperar();
 }
 void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores){
-    string doi, orcid;
 
-    cout << "Ingrese DOI: ";
-    cin >> doi;
+    if(publicaciones.empty()){
+        cout << "No hay publicaciones cargadas" << endl;
+        esperar();
+        return;
+    }
 
-    cout << "Ingrese ORCID: ";
-    cin >> orcid;
+    if(investigadores.empty()){
+        cout << "No hay investigadores cargados" << endl;
+        esperar();
+        return;
+    }
 
-    Publicacion* pub = NULL;
-    Investigador* inv = NULL;
+    for(int i = 0; i < investigadores.size(); i++){
 
-    for(int p = 0; p < publicaciones.size(); p++){
-        if(publicaciones[p]->getDOI() == doi){
-            pub = publicaciones[p];
+        string orcid = investigadores[i]->getORCID();
+
+        // CARLA OLIVERI
+        if(orcid == "0000-0003-1234-5678"){
+            for(int j = 0; j < publicaciones.size(); j++){
+                string doi = publicaciones[j]->getDOI();
+
+                if(doi == "10.1234/abc123" ||
+                   doi == "10.4567/jkl012" ||
+                   doi == "10.5678/mno345" ||
+                   doi == "10.3456/ghi789"){
+
+                    publicaciones[j]->agregarAutor(investigadores[i]);
+                }
+            }
+        }
+
+        // ALBERTO SANTOS
+        if(orcid == "0000-0001-8765-4321"){
+            for(int j = 0; j < publicaciones.size(); j++){
+                string doi = publicaciones[j]->getDOI();
+
+                if(doi == "10.1234/abc123" ||
+                   doi == "10.2345/def456" ||
+                   doi == "10.4567/jkl012"){
+
+                    publicaciones[j]->agregarAutor(investigadores[i]);
+                }
+            }
         }
     }
 
-    for(int  i = 0; i < investigadores.size(); i++){
-        if(investigadores[i]->getORCID() == orcid){
-            inv = investigadores[i];
-        }
-    }
-
-    if(pub != NULL && inv != NULL){
-        pub->agregarAutor(inv);
-        cout << "Relacion creada correctamente\n";
-    } else {
-        cout << "No se encontro publicacion o investigador\n";
-    }
-
+    cout << "Relaciones cargadas correctamente" << endl;
     esperar();
 }
 
