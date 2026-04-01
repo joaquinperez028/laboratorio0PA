@@ -16,6 +16,9 @@ void cargarInvestigadores(vector<Investigador *> &investigadores);
 void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
 void imprimirInvestigadores(vector<Investigador*>& investigadores);
 void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores);
+void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores);
+void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores);
+
 
 void esperar()
 {
@@ -62,8 +65,10 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             relacionar(publicaciones, investigadores);
             break;
         case 6:
+            menuListarPublicaciones(publicaciones, investigadores);
             break;
         case 7:
+            menuEliminarPublicacion(publicaciones, investigadores);
             break;
         case 0:
             cout << "Saliendo del programa.." << endl;
@@ -244,6 +249,74 @@ void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& inve
     esperar();
 }
 
+void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores)
+{
+    string orcid, palabra;
+    int d, m, a;
+
+    cout << "Ingrese ORCID del investigador: ";
+    cin >> orcid;
+    cout << "Ingrese fecha (Ej. 5 6 2023): ";
+    cin >> d >> m >> a;
+    DTFecha fecha(d, m, a);
+    cout << "Ingrese palabra clave a buscar: ";
+    cin >> palabra;
+
+    // Buscar al investigador
+    Investigador* inv = nullptr;
+    for (Investigador* i : listaInvestigadores) {
+        if (i->getORCID() == orcid) {
+            inv = i;
+            break;
+        }
+    }
+
+    if (inv != nullptr) {
+        //  Llama a la función que ya definiste en la clase Investigador
+        set<string> resultados = inv->listarPublicaciones(fecha, palabra);
+
+        if (resultados.empty()) {
+            cout << "No se encontraron publicaciones con esos criterios." << endl;
+        } else {
+            cout << "DOIs de publicaciones encontradas:" << endl;
+            for (string doi : resultados) {
+                cout << "- " << doi << endl;
+            }
+        }
+    } else {
+        cout << "Error: Investigador no encontrado." << endl;
+    }
+}
+
+void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores)
+{
+    string doi;
+    cout << "Ingrese el DOI de la publicación a eliminar: ";
+    cin >> doi;
+
+    bool encontrada = false;
+    
+    // 1. Buscar en el vector global de publicaciones
+    for (auto it = listaPublicaciones.begin(); it != listaPublicaciones.end(); ++it) {
+        if ((*it)->getDOI() == doi) {
+            
+            // 2. Liberar memoria del objeto (Importante si usaste 'new')
+            delete *it; 
+            
+            // 3. Quitar del vector
+            listaPublicaciones.erase(it);
+            
+            encontrada = true;
+            cout << "Publicación con DOI " << doi << " eliminada con éxito." << endl;
+            break;
+        }
+    }
+
+    if (!encontrada) {
+        cout << "Error: No existe una publicación con ese DOI." << endl;
+    }
+
+}
 
 int main()
 {
