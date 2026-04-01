@@ -14,11 +14,10 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones);
 void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void cargarInvestigadores(vector<Investigador *> &investigadores);
 void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
-void imprimirInvestigadores(vector<Investigador*>& investigadores);
-void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores);
-void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores);
-void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores);
-
+void imprimirInvestigadores(vector<Investigador *> &investigadores);
+void relacionar(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
+void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, const vector<Investigador *> &listaInvestigadores);
+void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones, vector<Investigador *> &listaInvestigadores);
 
 void esperar()
 {
@@ -139,7 +138,7 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones)
 
 void cargarInvestigadores(vector<Investigador *> &i)
 {
-    if (!i.empty()) 
+    if (!i.empty())
     {
         cout << "Los investigadores ya fueron cargados" << endl;
         esperar();
@@ -187,43 +186,55 @@ void imprimirPublicaciones(vector<Publicacion *> &p)
     }
 }
 
-void imprimirInvestigadores(vector<Investigador*>& investigadores){
-    if(investigadores.empty()){
+void imprimirInvestigadores(vector<Investigador *> &investigadores)
+{
+    if (investigadores.empty())
+    {
         cout << "No hay investigadores cargados\n";
-    } else {
-        for(int i = 0; i < investigadores.size(); i++){
+    }
+    else
+    {
+        for (int i = 0; i < investigadores.size(); i++)
+        {
             cout << investigadores[i]->toString() << endl;
         }
     }
     esperar();
 }
-void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& investigadores){
+void relacionar(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores)
+{
 
-    if(publicaciones.empty()){
+    if (publicaciones.empty())
+    {
         cout << "No hay publicaciones cargadas" << endl;
         esperar();
         return;
     }
 
-    if(investigadores.empty()){
+    if (investigadores.empty())
+    {
         cout << "No hay investigadores cargados" << endl;
         esperar();
         return;
     }
 
-    for(int i = 0; i < investigadores.size(); i++){
+    for (int i = 0; i < investigadores.size(); i++)
+    {
 
         string orcid = investigadores[i]->getORCID();
 
         // CARLA OLIVERI
-        if(orcid == "0000-0003-1234-5678"){
-            for(int j = 0; j < publicaciones.size(); j++){
+        if (orcid == "0000-0003-1234-5678")
+        {
+            for (int j = 0; j < publicaciones.size(); j++)
+            {
                 string doi = publicaciones[j]->getDOI();
 
-                if(doi == "10.1234/abc123" ||
-                   doi == "10.4567/jkl012" ||
-                   doi == "10.5678/mno345" ||
-                   doi == "10.3456/ghi789"){
+                if (doi == "10.1234/abc123" ||
+                    doi == "10.4567/jkl012" ||
+                    doi == "10.5678/mno345" ||
+                    doi == "10.3456/ghi789")
+                {
 
                     publicaciones[j]->agregarAutor(investigadores[i]);
                 }
@@ -231,13 +242,16 @@ void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& inve
         }
 
         // ALBERTO SANTOS
-        if(orcid == "0000-0001-8765-4321"){
-            for(int j = 0; j < publicaciones.size(); j++){
+        if (orcid == "0000-0001-8765-4321")
+        {
+            for (int j = 0; j < publicaciones.size(); j++)
+            {
                 string doi = publicaciones[j]->getDOI();
 
-                if(doi == "10.1234/abc123" ||
-                   doi == "10.2345/def456" ||
-                   doi == "10.4567/jkl012"){
+                if (doi == "10.1234/abc123" ||
+                    doi == "10.2345/def456" ||
+                    doi == "10.4567/jkl012")
+                {
 
                     publicaciones[j]->agregarAutor(investigadores[i]);
                 }
@@ -249,7 +263,7 @@ void relacionar(vector<Publicacion*>& publicaciones, vector<Investigador*>& inve
     esperar();
 }
 
-void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, const vector<Investigador*>& listaInvestigadores)
+void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, const vector<Investigador *> &listaInvestigadores)
 {
     string orcid, palabra;
     int d, m, a;
@@ -263,59 +277,75 @@ void menuListarPublicaciones(const vector<Publicacion*>& listaPublicaciones, con
     cin >> palabra;
 
     // Buscar al investigador
-    Investigador* inv = nullptr;
-    for (Investigador* i : listaInvestigadores) {
-        if (i->getORCID() == orcid) {
+    Investigador *inv = nullptr;
+    for (Investigador *i : listaInvestigadores)
+    {
+        if (i->getORCID() == orcid)
+        {
             inv = i;
             break;
         }
     }
 
-    if (inv != nullptr) {
+    if (inv != nullptr)
+    {
         //  Llama a la función que ya definiste en la clase Investigador
         set<string> resultados = inv->listarPublicaciones(fecha, palabra);
 
-        if (resultados.empty()) {
+        if (resultados.empty())
+        {
             cout << "No se encontraron publicaciones con esos criterios." << endl;
-        } else {
+            esperar();
+        }
+        else
+        {
             cout << "DOIs de publicaciones encontradas:" << endl;
-            for (string doi : resultados) {
+            for (string doi : resultados)
+            {
                 cout << "- " << doi << endl;
             }
+            esperar();
         }
-    } else {
+    }
+    else
+    {
         cout << "Error: Investigador no encontrado." << endl;
+        esperar();
     }
 }
 
-void menuEliminarPublicacion(vector<Publicacion*>& listaPublicaciones, vector<Investigador*>& listaInvestigadores)
+void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones, vector<Investigador *> &listaInvestigadores)
 {
     string doi;
     cout << "Ingrese el DOI de la publicación a eliminar: ";
     cin >> doi;
 
     bool encontrada = false;
-    
+
     // 1. Buscar en el vector global de publicaciones
-    for (auto it = listaPublicaciones.begin(); it != listaPublicaciones.end(); ++it) {
-        if ((*it)->getDOI() == doi) {
-            
+    for (auto it = listaPublicaciones.begin(); it != listaPublicaciones.end(); ++it)
+    {
+        if ((*it)->getDOI() == doi)
+        {
+
             // 2. Liberar memoria del objeto (Importante si usaste 'new')
-            delete *it; 
-            
+            delete *it;
+
             // 3. Quitar del vector
             listaPublicaciones.erase(it);
-            
+
             encontrada = true;
             cout << "Publicación con DOI " << doi << " eliminada con éxito." << endl;
+            esperar();
             break;
         }
     }
 
-    if (!encontrada) {
+    if (!encontrada)
+    {
         cout << "Error: No existe una publicación con ese DOI." << endl;
+        esperar();
     }
-
 }
 
 int main()
