@@ -327,7 +327,7 @@ void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones)
         if ((*it)->getDOI() == doi)
         {
             // delete llama al destructor ~Publicacion(): ahí cada autor hace removerPublicacion(this),
-            // así los Investigador dejan de guardar un puntero a esta publicación (sin tocar el main).
+            // así los Investigador dejan de guardar un puntero a esta publicación (sin tocar el main)
             delete *it;
             listaPublicaciones.erase(it);
 
