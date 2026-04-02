@@ -11,7 +11,11 @@ Publicacion::Publicacion(string doi, string titulo, DTFecha fecha)
 }
 
 Publicacion::~Publicacion() {
-    //pendiente implementar
+    // Recorre el vector "autores" elemento a elemento: en cada vuelta "aut" es un puntero al siguiente Investigador.
+    // Equivale a un for con índice, pero sin usar i. Así cada autor recibe la orden de sacar "this" (esta publicación) de su lista.
+    for (Investigador* aut : autores) {
+        aut->removerPublicacion(this);
+    }
 }
 
 DTFecha Publicacion::getFecha() {
