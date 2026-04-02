@@ -90,41 +90,41 @@ void cargarPublicaciones(vector<Publicacion *> &publicaciones)
 
     Publicacion *a1 = new ArticuloRevista(
         "10.1234/abc123",
-        "Importancia de la investigacion",
-        DTFecha(1, 5, 2022),
-        "Revista Cientifica",
-        "Este articulo trata sobre la investigacion en sistemas");
+        "Fundamentos de POO",
+        DTFecha(15, 5, 2023),
+        "Revista Programación Avanzada",
+        "Introduccion a los principios fundamentales de la programacion orientada a objetos, explicando sus conceptos clave como clases, objetos, herencia y polimorfismo");
 
     Publicacion *a2 = new ArticuloRevista(
         "10.4567/jkl012",
         "Utilidad de diagramas UML",
-        DTFecha(10, 12, 2023),
-        "Revista Software",
-        "Los diagramas UML ayudan al modelado de sistemas");
+        DTFecha(10, 2, 2024),
+        "Revista Modelado de Software",
+        "Ejercicio empirico de como los diagramas UML pueden ayudar en el proceso y documentacion de software, cubriendo los tipos mas importantes utilizados, como clases.");
 
-    vector<string> kw1 = {"programacion", "c++"};
-    vector<string> kw2 = {"uml", "modelado"};
+    vector<string> kw1 = {"Diseno", "OOP", "Class"};
+    vector<string> kw2 = {"Diagramas", "UML", "Modelado", "Software"};
 
     Publicacion *l1 = new Libro(
-        "20.1111/libro1",
-        "Programacion avanzada",
-        DTFecha(15, 3, 2020),
-        "Editorial A",
+        "10.2345/def456",
+        "Patrones de Diseno en c++",
+        DTFecha(20, 8, 2022),
+        "Editorial Software Design",
         kw1);
 
     Publicacion *l2 = new Libro(
-        "20.2222/libro2",
-        "Modelado UML",
-        DTFecha(20, 8, 2021),
-        "Editorial B",
+        "10.5678/mno345",
+        "Guia de UML",
+        DTFecha(20, 8, 2022),
+        "Editorial IEE",
         kw2);
 
     Publicacion *p1 = new PaginaWeb(
-        "30.3333/web1",
-        "Tutorial UML",
-        DTFecha(5, 6, 2023),
-        "www.uml.com",
-        "Contenido sobre UML y diagramas");
+        "10.3456/ghi789",
+        "Diagramas para Principiantes",
+        DTFecha(20, 10, 2024),
+        "www.umlparaprincipiantes.com",
+        "En esta pagina web se presenta una gui completa sobre los diagramas UML, abordando los diagramas de casos de uso, de clases, de secuencia y de actividades");
 
     publicaciones.push_back(a1);
     publicaciones.push_back(a2);
