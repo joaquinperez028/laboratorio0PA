@@ -21,6 +21,7 @@ class Investigador{
         string toString();
         set<string> listarPublicaciones(DTFecha, string); //Retorna set<string> en lugar de string (un conjunto de DOIs)
         void agregarPublicacion(Publicacion*);
+        void removerPublicacion(Publicacion* p);
         string getORCID();
         string getNombre();
         string getInstitucion();

@@ -11,6 +11,14 @@ void Investigador::agregarPublicacion(Publicacion* p) {
     publicaciones.push_back(p);
 }
 
+void Investigador::removerPublicacion(Publicacion* p) {
+    for (int i = (int)publicaciones.size() - 1; i >= 0; i--) {
+        if (publicaciones[i] == p) {
+            publicaciones.erase(publicaciones.begin() + i);
+        }
+    }
+}
+
 string Investigador::toString(){
     return this->ORCID + "->" + this->nombre + "/" + this->institucion;
 }

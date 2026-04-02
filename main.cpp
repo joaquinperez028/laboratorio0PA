@@ -17,7 +17,7 @@ void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de
 void imprimirInvestigadores(vector<Investigador *> &investigadores);
 void relacionar(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, const vector<Investigador *> &listaInvestigadores);
-void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones, vector<Investigador *> &listaInvestigadores);
+void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones);
 
 void esperar()
 {
@@ -67,7 +67,7 @@ void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &i
             menuListarPublicaciones(publicaciones, investigadores);
             break;
         case 7:
-            menuEliminarPublicacion(publicaciones, investigadores);
+            menuEliminarPublicacion(publicaciones);
             break;
         case 0:
             cout << "Saliendo del programa.." << endl;
@@ -314,28 +314,25 @@ void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, co
     }
 }
 
-void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones, vector<Investigador *> &listaInvestigadores)
+void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones)
 {
     string doi;
-    cout << "Ingrese el DOI de la publicación a eliminar: ";
+    cout << "Ingrese el DOI de la publicacion que desea eliminar: ";
     cin >> doi;
 
     bool encontrada = false;
 
-    // 1. Buscar en el vector global de publicaciones
     for (auto it = listaPublicaciones.begin(); it != listaPublicaciones.end(); ++it)
     {
         if ((*it)->getDOI() == doi)
         {
-
-            // 2. Liberar memoria del objeto (Importante si usaste 'new')
+            // delete llama al destructor ~Publicacion(): ahí cada autor hace removerPublicacion(this),
+            // así los Investigador dejan de guardar un puntero a esta publicación (sin tocar el main).
             delete *it;
-
-            // 3. Quitar del vector
             listaPublicaciones.erase(it);
 
             encontrada = true;
-            cout << "Publicación con DOI " << doi << " eliminada con éxito." << endl;
+            cout << "Publicacion con DOI " << doi << " eliminada con éxito." << endl;
             esperar();
             break;
         }
