@@ -13,7 +13,7 @@ void esperar();
 void cargarPublicaciones(vector<Publicacion *> &publicaciones);
 void mostrarMenu(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void cargarInvestigadores(vector<Investigador *> &investigadores);
-void imprimirPublicaciones(vector<Publicacion *> &publicaciones); // necesita de la sobrecarga para funcionar
+void imprimirPublicaciones(vector<Publicacion *> &publicaciones);
 void imprimirInvestigadores(vector<Investigador *> &investigadores);
 void relacionar(vector<Publicacion *> &publicaciones, vector<Investigador *> &investigadores);
 void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, const vector<Investigador *> &listaInvestigadores);
@@ -276,7 +276,6 @@ void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, co
     cout << "Ingrese palabra clave a buscar: ";
     cin >> palabra;
 
-    // Buscar al investigador
     Investigador *inv = nullptr;
     for (Investigador *i : listaInvestigadores)
     {
@@ -289,7 +288,6 @@ void menuListarPublicaciones(const vector<Publicacion *> &listaPublicaciones, co
 
     if (inv != nullptr)
     {
-        //  Llama a la función que ya definiste en la clase Investigador
         set<string> resultados = inv->listarPublicaciones(fecha, palabra);
 
         if (resultados.empty())
@@ -326,8 +324,7 @@ void menuEliminarPublicacion(vector<Publicacion *> &listaPublicaciones)
     {
         if ((*it)->getDOI() == doi)
         {
-            // delete llama al destructor ~Publicacion(): ahí cada autor hace removerPublicacion(this),
-            // así los Investigador dejan de guardar un puntero a esta publicación (sin tocar el main)
+
             delete *it;
             listaPublicaciones.erase(it);
 

@@ -8,7 +8,8 @@
 
 using namespace std;
 
-class DTRefer {
+class DTRefer
+{
 private:
     string DOI;
     string titulo;
@@ -16,13 +17,13 @@ private:
     set<string> autores;
 
 public:
-    DTRefer(string doi, string titulo, DTFecha fecha, set<string> autores); // constructor
-    string getDOI()const;
-    string getTitulo()const;
-    DTFecha getFecha()const;
-    set<string> getAutores()const;
+    DTRefer(string doi, string titulo, DTFecha fecha, set<string> autores);
+    string getDOI() const;
+    string getTitulo() const;
+    DTFecha getFecha() const;
+    set<string> getAutores() const;
 };
 
-ostream& operator<<(std::ostream& os, const DTRefer& dt); //declaro la funcion que va a sobre cargar el oeprador
+ostream &operator<<(std::ostream &os, const DTRefer &dt);
 
 #endif

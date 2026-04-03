@@ -27,7 +27,7 @@ set<string> DTRefer::getAutores() const
 }
 
 ostream &operator<<(ostream &os, const DTRefer &dt)
-{ // funcion para sobre cargar y que se imprima bien el datatype
+{
     os << dt.getDOI() << " -> "
        << dt.getTitulo() << " ("
        << dt.getFecha().getDia() << "/"

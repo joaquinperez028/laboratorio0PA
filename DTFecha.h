@@ -1,7 +1,8 @@
 #ifndef DTFECHA_H
 #define DTFECHA_H
 
-class DTFecha {
+class DTFecha
+{
 private:
     int dia;
     int mes;
@@ -12,7 +13,7 @@ public:
     int getDia();
     int getMes();
     int getAnio();
-    bool operator>=(const DTFecha& otra); //agrego esta operacion para que funcione el comparador en investigador
+    bool operator>=(const DTFecha &otra);
 };
 
 #endif
